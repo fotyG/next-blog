@@ -20,11 +20,10 @@ export const ThemeContextProvider = ({ children }) => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-
-  return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className={theme}>{children}</div>
-    </ThemeContext.Provider>
-  );
+  if (mounted)
+    return (
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <div className={theme}>{children}</div>
+      </ThemeContext.Provider>
+    );
 };
