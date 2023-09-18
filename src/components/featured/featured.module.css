@@ -8,10 +8,10 @@
 }
 
 .post {
-  gap: 50px;
-  display: flex;
   margin-top: 60px;
+  display: flex;
   align-items: center;
+  gap: 50px;
 }
 
 .imgContainer {
@@ -26,9 +26,9 @@
 
 .textContainer {
   flex: 1;
-  gap: 20px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .postTitle {

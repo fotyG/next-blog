@@ -4,26 +4,29 @@ import { createContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext();
 
-function getFromLocalStorage() {
+const getFromLocalStorage = () => {
   if (typeof window !== "undefined") {
     const value = localStorage.getItem("theme");
-
     return value || "light";
   }
-}
+};
 
 export const ThemeContextProvider = ({ children }) => {
-  const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useState(getFromLocalStorage());
+  const [theme, setTheme] = useState(() => {
+    return getFromLocalStorage();
+  });
+
+  const toggle = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
-  if (mounted)
-    return (
-      <ThemeContext.Provider value={{ theme, setTheme }}>
-        <div className={theme}>{children}</div>
-      </ThemeContext.Provider>
-    );
+  return (
+    <ThemeContext.Provider value={{ theme, toggle }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
